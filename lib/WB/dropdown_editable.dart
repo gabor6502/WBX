@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wbx/WB/wb_textfield.dart';
+import 'package:wbx/WB/wb_text_entries.dart';
 
 enum Operation { select, edit, add }
 
@@ -16,34 +16,28 @@ class DropdownEditable<T> extends StatefulWidget {
 class _DropdownEditableState<T> extends State<DropdownEditable> {
   Operation currOpp = Operation.select;
 
-  // based on current operation, get an activity for the user to perform
-  getActivity() {
-    if (currOpp == Operation.select) {
-      return DropdownMenu<T>(
-        requestFocusOnTap: true,
-        label: Text(widget.label),
-        dropdownMenuEntries: widget.list.map((elem) {
-          return DropdownMenuEntry<T>(value: elem, label: elem.name);
-        }).toList(),
-      );
-    } else if (currOpp == Operation.add) {
-      return WbTextfield(
+  // based on current operation, edit or add some data point for weight and balance
+  editOrAdd() {
+    if (currOpp == Operation.add) {
+      return WbTextEntries(
         key: UniqueKey(),
         onComplete: () {
           setState(() {
-            currOpp == Operation.select;
+            currOpp = Operation.select;
           });
         },
       );
     } else if (currOpp == Operation.edit) {
-      return WbTextfield(
+      return WbTextEntries(
         key: UniqueKey(),
         onComplete: () {
           setState(() {
-            currOpp == Operation.select;
+            currOpp = Operation.select;
           });
         },
       );
+    } else {
+      return Container();
     }
   }
 
@@ -53,25 +47,42 @@ class _DropdownEditableState<T> extends State<DropdownEditable> {
       decoration: BoxDecoration(
         border: Border(bottom: BorderSide(color: Colors.blueGrey)),
       ),
-      child: Row(
+      child: Column(
         children: [
-          getActivity(),
-          IconButton(
-            onPressed: () {
-              setState(() {
-                currOpp = Operation.add;
-              });
-            },
-            icon: Icon(Icons.add),
+          Row(
+            children: [
+              DropdownMenu<T>(
+                requestFocusOnTap: true,
+                label: Text(widget.label),
+                dropdownMenuEntries: widget.list.map((elem) {
+                  return DropdownMenuEntry<T>(value: elem, label: elem.name);
+                }).toList(),
+                enabled: currOpp == Operation.select,
+              ),
+              IconButton(
+                onPressed: currOpp == Operation.select
+                    ? () {
+                        setState(() {
+                          currOpp = Operation.add;
+                        });
+                      }
+                    : null,
+                icon: Icon(Icons.add),
+              ),
+              IconButton(
+                onPressed:
+                    (currOpp == Operation.select && widget.list.isNotEmpty)
+                    ? () {
+                        setState(() {
+                          currOpp = Operation.edit;
+                        });
+                      }
+                    : null,
+                icon: Icon(Icons.edit),
+              ),
+            ],
           ),
-          IconButton(
-            onPressed: () {
-              setState(() {
-                currOpp = Operation.edit;
-              });
-            },
-            icon: Icon(Icons.edit),
-          ),
+          editOrAdd(),
         ],
       ),
     );

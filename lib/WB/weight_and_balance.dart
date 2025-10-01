@@ -12,12 +12,14 @@ class WeightAndBalance extends StatefulWidget {
 }
 
 class _WeightAndBalanceState extends State<WeightAndBalance> {
+  List<Plane> emptyStubPlanes = [];
   List<Plane> stubPlanes = [
     Plane("CFLUG", 1039),
     Plane("CFMRG", 1200),
     Plane("CGHEY", 1000),
   ];
 
+  List<Pilot> emptyStubPilots = [];
   List<Pilot> stubPilots = [
     Pilot("Iyla <3", 120),
     Pilot("Amelia", 140),
@@ -27,8 +29,9 @@ class _WeightAndBalanceState extends State<WeightAndBalance> {
     Pilot("Sully", 150),
   ];
 
+  List<Person> emptyStubPassengers = [Person.noPassenger];
   List<Person> stubPassengers = [
-    Person.nullPassenger,
+    Person.noPassenger,
     Person("Elan", 160),
     Person("Michael", 150),
     Person("Hayley", 120),
@@ -41,17 +44,17 @@ class _WeightAndBalanceState extends State<WeightAndBalance> {
       children: [
         DropdownEditable<Plane>(
           key: UniqueKey(),
-          list: stubPlanes,
+          list: emptyStubPlanes,
           label: "Plane",
         ),
         DropdownEditable<Pilot>(
           key: UniqueKey(),
-          list: stubPilots,
+          list: emptyStubPilots,
           label: "Pilot in Command",
         ),
         DropdownEditable<Person>(
           key: UniqueKey(),
-          list: stubPassengers,
+          list: emptyStubPassengers,
           label: "Passenger",
         ),
       ],
