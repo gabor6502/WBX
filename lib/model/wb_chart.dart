@@ -8,11 +8,11 @@ class WbChart {
   static const double BEW_ARM = 34.35;
   static const double FRONT_SEAT_ARM = 39.0;
 
-  final Plane CFLUG = Plane("CFLUG", 1039); // MB99s specific plane
+  final Plane plane = Plane("CFLUG", 1039); // MB99s specific plane
   Pilot pilot;
   Person? passenger;
 
-  late Moment BEW;
+  late Moment basicEmptyWeight;
   late Moment frontSeat;
   Moment? baggage;
 
@@ -22,8 +22,8 @@ class WbChart {
   Moment? lessBurn;
   Moment? landing;
 
-  WbChart(this.pilot, this.passenger) {
-    BEW = Moment(CFLUG.weight.toDouble(), BEW_ARM);
+  void calculateWB() {
+    basicEmptyWeight = Moment(plane.weight.toDouble(), BEW_ARM);
 
     passenger ??= Person.noPassenger;
 
@@ -31,5 +31,9 @@ class WbChart {
       pilot.weight.toDouble() + passenger!.weight.toDouble(),
       FRONT_SEAT_ARM,
     );
+  }
+
+  WbChart(this.pilot, this.passenger) {
+    calculateWB();
   }
 }
