@@ -1,7 +1,7 @@
 class Moment {
-  int weight;
-  int arm;
-  int moment;
+  double weight;
+  double arm;
+  double moment;
 
   Moment(this.weight, this.arm) : moment = weight * arm;
 }
