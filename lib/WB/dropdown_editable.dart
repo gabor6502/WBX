@@ -75,7 +75,7 @@ class _DropdownEditableState<T extends Item> extends State<DropdownEditable> {
               ),
               IconButton(
                 onPressed:
-                    (currOpp == Operation.select && widget.list.isNotEmpty)
+                    (currOpp == Operation.select && widget.list.length > 1)
                     ? () {
                         setState(() {
                           currOpp = Operation.edit;
