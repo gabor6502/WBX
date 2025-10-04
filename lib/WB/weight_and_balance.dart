@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:wbx/WB/dropdown_editable.dart';
 import '../model/pilot.dart';
 import '../model/person.dart';
-import '../model/plane.dart';
 
 class WeightAndBalance extends StatefulWidget {
   const WeightAndBalance({super.key});
@@ -12,14 +11,14 @@ class WeightAndBalance extends StatefulWidget {
 }
 
 class _WeightAndBalanceState extends State<WeightAndBalance> {
-  List<Plane> emptyStubPlanes = [];
+  /*List<Plane> emptyStubPlanes = [];
   List<Plane> stubPlanes = [
     Plane("CFLUG", 1039),
     Plane("CFMRG", 1200),
     Plane("CGHEY", 1000),
-  ];
+  ];*/
 
-  List<Pilot> emptyStubPilots = [];
+  List<Pilot> emptyStubPilots = [Pilot("Select a pilot", 0)];
   List<Pilot> stubPilots = [
     Pilot("Iyla <3", 120),
     Pilot("Amelia", 140),
@@ -29,7 +28,7 @@ class _WeightAndBalanceState extends State<WeightAndBalance> {
     Pilot("Sully", 150),
   ];
 
-  List<Person> emptyStubPassengers = [Person.noPassenger];
+  List<Person> emptyStubPassengers = [Person("Select a person", 0)];
   List<Person> stubPassengers = [
     Person.noPassenger,
     Person("Elan", 160),
@@ -39,25 +38,30 @@ class _WeightAndBalanceState extends State<WeightAndBalance> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        DropdownEditable<Plane>(
-          key: UniqueKey(),
-          list: emptyStubPlanes,
-          label: "Plane",
-        ),
-        DropdownEditable<Pilot>(
-          key: UniqueKey(),
-          list: emptyStubPilots,
-          label: "Pilot in Command",
-        ),
-        DropdownEditable<Person>(
-          key: UniqueKey(),
-          list: emptyStubPassengers,
-          label: "Passenger",
-        ),
-      ],
+    return Container(
+      padding: EdgeInsetsDirectional.symmetric(vertical: 5, horizontal: 15),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          /*
+          DropdownEditable<Plane>(
+            key: UniqueKey(),
+            list: stubPlanes,
+            label: "Plane",
+          ),*/
+          Text("CFLUG", style: TextStyle(fontSize: 28)),
+          DropdownEditable<Pilot>(
+            key: UniqueKey(),
+            list: emptyStubPilots,
+            label: "Pilot in Command",
+          ),
+          DropdownEditable<Person>(
+            key: UniqueKey(),
+            list: emptyStubPassengers,
+            label: "Passenger",
+          ),
+        ],
+      ),
     );
   }
 }

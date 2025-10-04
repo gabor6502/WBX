@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:wbx/WB/wb_text_entries.dart';
+import 'package:wbx/model/item.dart';
 
 enum Operation { select, edit, add }
 
-class DropdownEditable<T> extends StatefulWidget {
+class DropdownEditable<T extends Item> extends StatefulWidget {
   final List<T> list;
   final String label;
 
@@ -13,7 +14,7 @@ class DropdownEditable<T> extends StatefulWidget {
   State<DropdownEditable> createState() => _DropdownEditableState<T>();
 }
 
-class _DropdownEditableState<T> extends State<DropdownEditable> {
+class _DropdownEditableState<T extends Item> extends State<DropdownEditable> {
   Operation currOpp = Operation.select;
 
   // based on current operation, edit or add some data point for weight and balance
@@ -44,18 +45,21 @@ class _DropdownEditableState<T> extends State<DropdownEditable> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        border: Border(bottom: BorderSide(color: Colors.blueGrey)),
-      ),
+      margin: EdgeInsets.symmetric(vertical: 5),
+      padding: EdgeInsets.symmetric(vertical: 5),
       child: Column(
         children: [
           Row(
             children: [
-              DropdownMenu<T>(
+              DropdownMenu<Item>(
                 requestFocusOnTap: true,
                 label: Text(widget.label),
                 dropdownMenuEntries: widget.list.map((elem) {
-                  return DropdownMenuEntry<T>(value: elem, label: elem.name);
+                  return DropdownMenuEntry<Item>(
+                    value: elem,
+                    label: elem.name,
+                    enabled: elem.weight > 0,
+                  );
                 }).toList(),
                 enabled: currOpp == Operation.select,
               ),
