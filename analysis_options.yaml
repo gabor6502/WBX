@@ -2,3 +2,8 @@ include: package:flutter_lints/flutter.yaml
 
 linter:
   rules:
+    - avoid_annotating_with_dynamic
+    - curly_braces_in_flow_control_structures
+    - avoid_empty_else
+    - empty_catches
+    - unnecessary_const

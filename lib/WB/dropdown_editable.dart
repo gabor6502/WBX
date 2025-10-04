@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wbx/WB/wb_text_entries.dart';
-import 'package:wbx/model/item.dart';
+import 'package:wbx/model/items/item.dart';
 
 enum Operation { select, edit, add }
 
@@ -16,6 +16,7 @@ class DropdownEditable<T extends Item> extends StatefulWidget {
 
 class _DropdownEditableState<T extends Item> extends State<DropdownEditable> {
   Operation currOpp = Operation.select;
+  Item? selected;
 
   // based on current operation, edit or add some data point for weight and balance
   editOrAdd() {
@@ -54,14 +55,21 @@ class _DropdownEditableState<T extends Item> extends State<DropdownEditable> {
               DropdownMenu<Item>(
                 requestFocusOnTap: true,
                 label: Text(widget.label),
-                dropdownMenuEntries: widget.list.map((elem) {
+                dropdownMenuEntries: widget.list.asMap().entries.map((entry) {
                   return DropdownMenuEntry<Item>(
-                    value: elem,
-                    label: elem.name,
-                    enabled: elem.weight > 0,
+                    value: entry.value,
+                    label: entry.value.name,
+                    enabled:
+                        entry.value.weight >
+                        0, // case for default "select item"
                   );
                 }).toList(),
                 enabled: currOpp == Operation.select,
+                onSelected: (value) {
+                  setState(() {
+                    value!.weight > 0 ? selected = value : selected = null;
+                  });
+                },
               ),
               IconButton(
                 onPressed: currOpp == Operation.select
@@ -74,8 +82,7 @@ class _DropdownEditableState<T extends Item> extends State<DropdownEditable> {
                 icon: Icon(Icons.add),
               ),
               IconButton(
-                onPressed:
-                    (currOpp == Operation.select && widget.list.length > 1)
+                onPressed: (currOpp == Operation.select && selected != null)
                     ? () {
                         setState(() {
                           currOpp = Operation.edit;

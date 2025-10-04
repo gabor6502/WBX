@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wbx/WB/dropdown_editable.dart';
-import '../model/pilot.dart';
-import '../model/person.dart';
+import '../model/items/pilot.dart';
+import '../model/items/person.dart';
 
 class WeightAndBalance extends StatefulWidget {
   const WeightAndBalance({super.key});
