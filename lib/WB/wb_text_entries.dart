@@ -28,6 +28,7 @@ class _WbTextEntriesState extends State<WbTextEntries> {
         border: Border(left: BorderSide(width: 6, color: Colors.pink.shade700)),
       ),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextField(
@@ -53,6 +54,7 @@ class _WbTextEntriesState extends State<WbTextEntries> {
             ),
           ),
           Row(
+            mainAxisSize: MainAxisSize.min,
             children: [
               IconButton(
                 // save changes

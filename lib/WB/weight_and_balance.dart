@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wbx/WB/dropdown_editable.dart';
+import 'package:wbx/model/wb_types/weight.dart';
 import '../model/items/pilot.dart';
 import '../model/items/person.dart';
 
@@ -18,49 +19,61 @@ class _WeightAndBalanceState extends State<WeightAndBalance> {
     Plane("CGHEY", 1000),
   ];*/
 
-  List<Pilot> emptyStubPilots = [Pilot("Select a pilot", 0)];
+  List<Pilot> emptyStubPilots = [Pilot("Select a pilot", Weight(0))];
   List<Pilot> stubPilots = [
-    Pilot("Iyla <3", 120),
-    Pilot("Amelia", 140),
-    Pilot("Orville", 160),
-    Pilot("Wilbur", 150),
-    Pilot("Billy", 170),
-    Pilot("Sully", 150),
+    Pilot("Iyla <3", Weight(120)),
+    Pilot("Amelia", Weight(140)),
+    Pilot("Orville", Weight(160)),
+    Pilot("Wilbur", Weight(150)),
+    Pilot("Billy", Weight(170)),
+    Pilot("Sully", Weight(150)),
   ];
 
-  List<Person> emptyStubPassengers = [Person("Select a person", 0)];
+  List<Person> emptyStubPassengers = [Person("Select a person", Weight(0))];
   List<Person> stubPassengers = [
     Person.noPassenger,
-    Person("Elan", 160),
-    Person("Michael", 150),
-    Person("Hayley", 120),
+    Person("Elan", Weight(160)),
+    Person("Michael", Weight(150)),
+    Person("Hayley", Weight(120)),
   ];
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsetsDirectional.symmetric(vertical: 5, horizontal: 15),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          /*
-          DropdownEditable<Plane>(
-            key: UniqueKey(),
-            list: stubPlanes,
-            label: "Plane",
-          ),*/
-          Text("CFLUG", style: TextStyle(fontSize: 28)),
-          DropdownEditable<Pilot>(
-            key: UniqueKey(),
-            list: emptyStubPilots,
-            label: "Pilot in Command",
-          ),
-          DropdownEditable<Person>(
-            key: UniqueKey(),
-            list: emptyStubPassengers,
-            label: "Passenger",
-          ),
-        ],
+    return SingleChildScrollView(
+      child: Container(
+        padding: EdgeInsetsDirectional.symmetric(vertical: 10, horizontal: 17),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("CFLUG", style: TextStyle(fontSize: 28)),
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.pink.shade700, width: 4),
+                borderRadius: BorderRadius.all(Radius.circular(30)),
+              ),
+              padding: EdgeInsetsDirectional.symmetric(
+                vertical: 10,
+                horizontal: 17,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Front Seat: ", style: TextStyle(fontSize: 20)),
+                  DropdownEditable<Pilot>(
+                    key: UniqueKey(),
+                    list: emptyStubPilots,
+                    label: "Pilot",
+                  ),
+                  DropdownEditable<Person>(
+                    key: UniqueKey(),
+                    list: emptyStubPassengers,
+                    label: "Passenger",
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

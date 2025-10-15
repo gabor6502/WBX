@@ -18,39 +18,16 @@ class _DropdownEditableState<T extends Item> extends State<DropdownEditable> {
   Operation currOpp = Operation.select;
   Item? selected;
 
-  // based on current operation, edit or add some data point for weight and balance
-  editOrAdd() {
-    if (currOpp == Operation.add) {
-      return WbTextEntries(
-        key: UniqueKey(),
-        onComplete: () {
-          setState(() {
-            currOpp = Operation.select;
-          });
-        },
-      );
-    } else if (currOpp == Operation.edit) {
-      return WbTextEntries(
-        key: UniqueKey(),
-        onComplete: () {
-          setState(() {
-            currOpp = Operation.select;
-          });
-        },
-      );
-    } else {
-      return Container();
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 5),
       padding: EdgeInsets.symmetric(vertical: 5),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
+            mainAxisSize: MainAxisSize.min,
             children: [
               DropdownMenu<Item>(
                 requestFocusOnTap: true,
@@ -60,14 +37,16 @@ class _DropdownEditableState<T extends Item> extends State<DropdownEditable> {
                     value: entry.value,
                     label: entry.value.name,
                     enabled:
-                        entry.value.weight >
+                        entry.value.weight.weight >
                         0, // case for default "select item"
                   );
                 }).toList(),
                 enabled: currOpp == Operation.select,
                 onSelected: (value) {
                   setState(() {
-                    value!.weight > 0 ? selected = value : selected = null;
+                    value!.weight.weight > 0
+                        ? selected = value
+                        : selected = null;
                   });
                 },
               ),
@@ -93,7 +72,28 @@ class _DropdownEditableState<T extends Item> extends State<DropdownEditable> {
               ),
             ],
           ),
-          editOrAdd(),
+          Visibility(
+            visible: currOpp == Operation.add,
+            child: WbTextEntries(
+              key: UniqueKey(),
+              onComplete: () {
+                setState(() {
+                  currOpp = Operation.select;
+                });
+              },
+            ),
+          ),
+          Visibility(
+            visible: currOpp == Operation.edit,
+            child: WbTextEntries(
+              key: UniqueKey(),
+              onComplete: () {
+                setState(() {
+                  currOpp = Operation.select;
+                });
+              },
+            ),
+          ),
         ],
       ),
     );
