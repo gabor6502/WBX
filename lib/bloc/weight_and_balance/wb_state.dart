@@ -1,4 +1,4 @@
-import 'package:wbx/model/wb_chart.dart';
+import 'package:wbx/model/wb_chart/wb_chart.dart';
 
 class WbState {
   WbChart weightAndBalance;
