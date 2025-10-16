@@ -7,4 +7,14 @@ class Moment {
   double moment;
 
   Moment(this.weight, this.arm) : moment = weight.weight * arm.arm;
+
+  static Arm getArmFrom(Moment m, Weight w) {
+    return Arm(m.moment / w.weight);
+  }
+
+  Moment operator +(Moment? other) {
+    return other != null
+        ? Moment(weight + other.weight, arm + other.arm)
+        : Moment(weight, arm);
+  }
 }
