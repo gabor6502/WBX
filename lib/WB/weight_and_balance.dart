@@ -52,6 +52,7 @@ class _WeightAndBalanceState extends State<WeightAndBalance> {
                 border: Border.all(color: Colors.pink.shade700, width: 4),
                 borderRadius: BorderRadius.all(Radius.circular(30)),
               ),
+              margin: EdgeInsets.symmetric(vertical: 10, horizontal: 0),
               padding: EdgeInsetsDirectional.symmetric(
                 vertical: 15,
                 horizontal: 17,
@@ -59,7 +60,10 @@ class _WeightAndBalanceState extends State<WeightAndBalance> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Front Seat: ", style: TextStyle(fontSize: 20)),
+                  Text(
+                    "Weight and Balance Variables:",
+                    style: TextStyle(fontSize: 20),
+                  ),
                   DropdownEditable<Pilot>(
                     key: UniqueKey(),
                     list: emptyStubPilots,
@@ -70,11 +74,23 @@ class _WeightAndBalanceState extends State<WeightAndBalance> {
                     list: emptyStubPassengers,
                     label: "Passenger",
                   ),
-                  TextEntry(
-                    hintText: "Enter baggage weight",
-                    labelText: "Baggage",
-                  ),
+                  TextEntry(hintText: "lbs", labelText: "Baggage"),
+                  TextEntry(hintText: "gal", labelText: "Fuel"),
+                  TextEntry(hintText: "gal", labelText: "Less Burn Fuel"),
                 ],
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.pink.shade700, width: 4),
+                borderRadius: BorderRadius.all(Radius.circular(30)),
+              ),
+              padding: EdgeInsetsDirectional.symmetric(
+                vertical: 15,
+                horizontal: 17,
+              ),
+              child: Column(
+                children: [Text("Chart:", style: TextStyle(fontSize: 20))],
               ),
             ),
           ],
