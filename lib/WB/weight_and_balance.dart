@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wbx/WB/dropdown_editable.dart';
+import 'package:wbx/WB/text_entry.dart';
 import 'package:wbx/model/wb_types/weight.dart';
 import '../model/items/pilot.dart';
 import '../model/items/person.dart';
@@ -52,7 +53,7 @@ class _WeightAndBalanceState extends State<WeightAndBalance> {
                 borderRadius: BorderRadius.all(Radius.circular(30)),
               ),
               padding: EdgeInsetsDirectional.symmetric(
-                vertical: 10,
+                vertical: 15,
                 horizontal: 17,
               ),
               child: Column(
@@ -68,6 +69,10 @@ class _WeightAndBalanceState extends State<WeightAndBalance> {
                     key: UniqueKey(),
                     list: emptyStubPassengers,
                     label: "Passenger",
+                  ),
+                  TextEntry(
+                    hintText: "Enter baggage weight",
+                    labelText: "Baggage",
                   ),
                 ],
               ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wbx/WB/wb_text_entries.dart';
+import 'package:wbx/WB/name_weight_entries.dart';
 import 'package:wbx/model/items/item.dart';
 
 enum Operation { select, edit, add }
@@ -74,7 +74,7 @@ class _DropdownEditableState<T extends Item> extends State<DropdownEditable> {
           ),
           Visibility(
             visible: currOpp == Operation.add,
-            child: WbTextEntries(
+            child: NameWeightEntries(
               key: UniqueKey(),
               onComplete: () {
                 setState(() {
@@ -85,7 +85,7 @@ class _DropdownEditableState<T extends Item> extends State<DropdownEditable> {
           ),
           Visibility(
             visible: currOpp == Operation.edit,
-            child: WbTextEntries(
+            child: NameWeightEntries(
               key: UniqueKey(),
               onComplete: () {
                 setState(() {
